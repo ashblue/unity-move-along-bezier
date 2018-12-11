@@ -28,26 +28,6 @@ namespace CleverCrow.Curves.Editors {
 
             ShowDirections();
             Handles.DrawBezier(p0, p3, p1, p2, Color.white, null, 2f);
-            
-//            // Print the starting point
-//            var lineStart = _curve.GetPoint(0f);
-//            Handles.color = Color.green;
-//            Handles.DrawLine(lineStart, lineStart + _curve.GetDirection(0f));
-//            
-//            // Create the curve
-//            for (var i = 1; i <= LINE_STEPS; i++) {
-//                var lineEnd = _curve.GetPoint(i / (float) LINE_STEPS);
-//                
-//                // Print the direct line
-//                Handles.color = Color.white;
-//                Handles.DrawLine(lineStart, lineEnd);
-//                
-//                // Print the line curve projection
-//                Handles.color = Color.green;
-//                Handles.DrawLine(lineEnd, lineEnd + _curve.GetDirection(i / (float)LINE_STEPS));
-//                
-//                lineStart = lineEnd;
-//            }
         }
 
         private void ShowDirections () {
