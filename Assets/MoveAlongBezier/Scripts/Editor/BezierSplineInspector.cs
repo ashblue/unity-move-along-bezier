@@ -15,6 +15,12 @@ namespace CleverCrow.Curves.Editors {
         private Transform _handleTransform;
         private Quaternion _handleRotation;
 
+        private static Color[] _modeColors = {
+            Color.white,
+            Color.yellow,
+            Color.cyan
+        };
+
         private void OnSceneGUI () {
             _spline = target as BezierSpline;
             _handleTransform = _spline.transform;
@@ -22,7 +28,7 @@ namespace CleverCrow.Curves.Editors {
                 _handleTransform.rotation : Quaternion.identity;
 
             var p0 = ShowPoint(0);
-            for (var i = 1; i < _spline.points.Length; i += 3) {
+            for (var i = 1; i < _spline.ControlPointCount; i += 3) {
                 var p1 = ShowPoint(i);
                 var p2 = ShowPoint(i + 1);
                 var p3 = ShowPoint(i + 2);
@@ -39,12 +45,40 @@ namespace CleverCrow.Curves.Editors {
         }
 
         public override void OnInspectorGUI () {
-            DrawDefaultInspector();
             _spline = target as BezierSpline;
+
+            if (_selectedIndex >= 0 && _selectedIndex < _spline.ControlPointCount) {
+                DrawSelectedPointInspector();
+            }
             
             if (GUILayout.Button("Add Curve")) {
                 Undo.RecordObject(_spline, "Add Curve");
                 _spline.AddCurve();
+                EditorUtility.SetDirty(_spline);
+            }
+        }
+
+        private void DrawSelectedPointInspector () {
+            GUILayout.Label("Selected Point");
+            
+            EditorGUI.BeginChangeCheck();
+            
+            var point = EditorGUILayout.Vector3Field("Position", _spline.GetControlPoint(_selectedIndex));
+            
+            if (EditorGUI.EndChangeCheck()) {
+                Undo.RecordObject(_spline, "Move Point");
+                EditorUtility.SetDirty(_spline);
+                _spline.SetControlPoint(_selectedIndex, point);
+            }
+            
+            EditorGUI.BeginChangeCheck();
+            
+            BezierControlPointMode mode =
+                (BezierControlPointMode)EditorGUILayout.EnumPopup("Mode", _spline.GetControlPointMode(_selectedIndex));
+
+            if (EditorGUI.EndChangeCheck()) {
+                Undo.RecordObject(_spline, "Change Point Mode");
+                _spline.SetControlPointMode(_selectedIndex, mode);
                 EditorUtility.SetDirty(_spline);
             }
         }
@@ -62,12 +96,13 @@ namespace CleverCrow.Curves.Editors {
         }
 
         private Vector3 ShowPoint (int index) {
-            var point = _handleTransform.TransformPoint(_spline.points[index]);
+            var point = _handleTransform.TransformPoint(_spline.GetControlPoint(index));
             var size = HandleUtility.GetHandleSize(point);
             
-            Handles.color = Color.white;
+            Handles.color = _modeColors[(int)_spline.GetControlPointMode(index)];
             if (Handles.Button(point, _handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
+                Repaint();
             }
 
             if (_selectedIndex == index) {
@@ -77,7 +112,7 @@ namespace CleverCrow.Curves.Editors {
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(_spline, "Move Point");
                     EditorUtility.SetDirty(_spline);
-                    _spline.points[index] = _handleTransform.InverseTransformPoint(point);
+                    _spline.SetControlPoint(index, _handleTransform.InverseTransformPoint(point));
                 }
             }
             
