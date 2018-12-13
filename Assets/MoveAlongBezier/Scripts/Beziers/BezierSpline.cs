@@ -148,5 +148,16 @@ namespace CleverCrow.Curves {
                 BezierControlPointMode.Free
             };
         }
+
+        public bool IsHandle (int index) {
+            var modeIndex = (index + 1) / 3;
+            var middleIndex = modeIndex * 3;
+
+            if (index == 1 || index == _points.Length - 2) {
+                return true;
+            }
+
+            return index != middleIndex;
+        }
     }
 }

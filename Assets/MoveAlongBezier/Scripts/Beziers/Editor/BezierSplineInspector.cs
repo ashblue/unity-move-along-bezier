@@ -99,8 +99,14 @@ namespace CleverCrow.Curves.Editors {
         private Vector3 ShowPoint (int index) {
             var point = _handleTransform.TransformPoint(_spline.GetControlPoint(index));
             var size = HandleUtility.GetHandleSize(point);
+            var mode = _spline.GetControlPointMode(index);
+
+            // Do not draw handles for straight lines
+            if (mode == BezierControlPointMode.StraightLine && _spline.IsHandle(index)) {
+                return point;
+            }
             
-            Handles.color = _modeColors[(int)_spline.GetControlPointMode(index)];
+            Handles.color = _modeColors[(int)mode];
             if (Handles.Button(point, _handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
                 Repaint();
