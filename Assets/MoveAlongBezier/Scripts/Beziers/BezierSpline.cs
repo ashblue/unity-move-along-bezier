@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CleverCrow.Curves {
@@ -9,13 +11,9 @@ namespace CleverCrow.Curves {
         [SerializeField]
         private Vector3[] _points;
 
-        public int ControlPointCount {
-            get { return _points.Length; }
-        }
-        
-        public int CurveCount {
-            get { return (_points.Length - 1) / 3; }
-        }
+        public int ControlPointCount => _points.Length;
+
+        public int CurveCount => (_points.Length - 1) / 3;
 
         public Vector3 GetControlPoint (int index) {
             return _points[index];
@@ -149,6 +147,21 @@ namespace CleverCrow.Curves {
             };
         }
 
+        private List<int> GetAssociatedPointIndices (int pointIndex) {
+            if (pointIndex == 0 || pointIndex == 1) {
+                return new List<int> {0, 1};
+            }
+
+            if (pointIndex == _points.Length - 1 || pointIndex == _points.Length - 2) {
+                return new List<int> {_points.Length - 1, _points.Length - 2};
+            }
+
+            var modeIndex = (pointIndex + 1) / 3;
+            var middleIndex = modeIndex * 3;
+
+            return new List<int> {middleIndex - 1, middleIndex, middleIndex + 1};
+        }
+
         public bool IsHandle (int index) {
             var modeIndex = (index + 1) / 3;
             var middleIndex = modeIndex * 3;
@@ -158,6 +171,25 @@ namespace CleverCrow.Curves {
             }
 
             return index != middleIndex;
+        }
+
+        public void DeletePoint (int pointIndex) {
+            var pointIndices = GetAssociatedPointIndices(pointIndex);
+            var modeIndex = GetAssociatedModeIndex(pointIndex);
+
+            // Account for deleting end points
+            if (pointIndices.Contains(0)) {
+                pointIndices.Add(2);
+            } else if (pointIndices.Contains(_points.Length - 1)) {
+                pointIndices.Add(_points.Length - 3);
+            }
+            
+            _points = _points.Where((source, index) => !pointIndices.Contains(index)).ToArray();
+            _modes = _modes.Where((source, index) => modeIndex != index).ToArray();
+        }
+
+        private int GetAssociatedModeIndex (int pointIndex) {
+            return (pointIndex + 1) / 3;
         }
     }
 }

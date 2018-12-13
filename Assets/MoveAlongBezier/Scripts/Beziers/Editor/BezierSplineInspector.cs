@@ -50,6 +50,15 @@ namespace CleverCrow.Curves.Editors {
 
             if (_selectedIndex >= 0 && _selectedIndex < _spline.ControlPointCount) {
                 DrawSelectedPointInspector();
+
+                if (!_spline.IsHandle(_selectedIndex) 
+                    && _spline.CurveCount > 1
+                    && GUILayout.Button("Delete Curve")) {
+                    
+                    Undo.RecordObject(_spline, "Delete Curve");
+                    _spline.DeletePoint(_selectedIndex);
+                    EditorUtility.SetDirty(_spline);
+                }
             }
             
             if (GUILayout.Button("Add Curve")) {
