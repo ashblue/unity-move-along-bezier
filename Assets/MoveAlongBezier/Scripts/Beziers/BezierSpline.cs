@@ -101,10 +101,17 @@ namespace CleverCrow.Curves {
             var modeIndex = (index + 1) / 3;
             var mode = _modes[modeIndex];
             
+            // Enforce straight line mode on ends
+            if (modeIndex == 0 && mode == BezierControlPointMode.StraightLine) {
+                _points[1] = _points[0];
+            } else if (modeIndex == _modes.Length - 1 && mode == BezierControlPointMode.StraightLine) {
+                _points[_points.Length - 2] = _points[_points.Length - 1];
+            }
+            
             if (mode == BezierControlPointMode.Free || modeIndex == 0 || modeIndex == _modes.Length - 1) {
                 return;
             }
-
+            
             var middleIndex = modeIndex * 3;
             int fixedIndex, enforcedIndex;
             if (index <= middleIndex) {
