@@ -22,6 +22,17 @@ namespace CleverCrow.Curves {
         }
 
         public void SetControlPoint (int index, Vector3 point) {
+            if (index % 3 == 0) {
+                var delta = point - _points[index];
+                if (index > 0) {
+                    _points[index - 1] += delta;
+                }
+
+                if (index + 1 < _points.Length) {
+                    _points[index + 1] += delta;
+                }
+            }
+            
             _points[index] = point;
             EnforceMode(index);
         }
@@ -74,6 +85,7 @@ namespace CleverCrow.Curves {
             
             Array.Resize(ref _modes, _modes.Length + 1);
             _modes[_modes.Length - 1] = _modes[_modes.Length - 2];
+            EnforceMode(_points.Length - 4);
         }
 
         public BezierControlPointMode GetControlPointMode (int index) {
