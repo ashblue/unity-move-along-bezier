@@ -119,7 +119,12 @@ namespace CleverCrow.Curves {
             var enforcedTangent = middle - _points[fixedIndex];
             if (mode == BezierControlPointMode.Aligned) {
                 enforcedTangent = enforcedTangent.normalized * Vector3.Distance(middle, _points[enforcedIndex]);
+            } else if (mode == BezierControlPointMode.StraightLine) {
+                _points[fixedIndex] = middle;
+                _points[enforcedIndex] = middle;
+                return;
             }
+            
             _points[enforcedIndex] = middle + enforcedTangent;
         }
 

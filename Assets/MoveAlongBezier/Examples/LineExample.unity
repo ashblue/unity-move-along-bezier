@@ -284,7 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p0: {x: -2.7440515, y: -0.011445999, z: -3.060192}
-  p1: {x: 0.87961113, y: 1.2265592, z: 3.4710155}
+  p1: {x: 0.57841456, y: 1.2265592, z: 3.4710155}
+  points: []
 --- !u!4 &1416798288
 Transform:
   m_ObjectHideFlags: 0

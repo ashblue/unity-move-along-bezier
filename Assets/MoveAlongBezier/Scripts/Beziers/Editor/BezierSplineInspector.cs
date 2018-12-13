@@ -18,7 +18,8 @@ namespace CleverCrow.Curves.Editors {
         private static Color[] _modeColors = {
             Color.white,
             Color.yellow,
-            Color.cyan
+            Color.cyan,
+            Color.red
         };
 
         private void OnSceneGUI () {
