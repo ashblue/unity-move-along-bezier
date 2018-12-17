@@ -7,7 +7,7 @@ namespace CleverCrow.Curves {
 		public List<CurvePoint> points;
 
 		public bool Ready => points[0].transform != null 
-		                     && points[1].transform != null;
+		                     && points[points.Count - 1].transform != null;
 
 		private void Reset () {
 			points = new List<CurvePoint> {

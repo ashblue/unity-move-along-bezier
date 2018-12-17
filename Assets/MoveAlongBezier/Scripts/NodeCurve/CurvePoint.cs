@@ -11,6 +11,9 @@ namespace CleverCrow.Curves {
 
         [SerializeField]
         private CurveMode _mode;
+
+        [SerializeField] 
+        private Vector3 _position;
         
         public Vector3 Tangent {
             get {
@@ -31,8 +34,11 @@ namespace CleverCrow.Curves {
             get => _mode;
             set => _mode = value;
         }
-        
-        public Vector3 Position => transform == null ? Vector3.zero : transform.position;
+
+        public Vector3 Position {
+            get => transform == null ? _position : transform.position;
+            set => _position = value;
+        }
 
         public void SetRelativeTangent (Vector3 target) {
             var heading = target - Position;

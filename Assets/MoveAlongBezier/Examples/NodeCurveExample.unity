@@ -292,11 +292,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 173959332}
-    _tangent: {x: 1, y: 0, z: 1}
-    _mode: 1
-  - transform: {fileID: 29219777}
-    _tangent: {x: -1, y: -3.241203, z: -1.479284}
+    _tangent: {x: -0.015187025, y: -0.68632877, z: 0.99999994}
     _mode: 0
+    _position: {x: 0, y: 0, z: 0}
+  - transform: {fileID: 0}
+    _tangent: {x: 1, y: 2.3691382, z: 0.55723906}
+    _mode: 0
+    _position: {x: -0.41500008, y: 1.605, z: -0.75}
+  - transform: {fileID: 0}
+    _tangent: {x: 1, y: 0, z: 0}
+    _mode: 0
+    _position: {x: 1.0374999, y: 0.8725, z: -0.025000006}
+  - transform: {fileID: 29219777}
+    _tangent: {x: -1, y: 0, z: -1}
+    _mode: 0
+    _position: {x: 0, y: 0, z: 0}
 --- !u!4 &272060837
 Transform:
   m_ObjectHideFlags: 0
@@ -304,7 +314,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272060835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8, y: 1.36, z: -0.49}
+  m_LocalPosition: {x: -0.91, y: 1.36, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173959332}
@@ -418,11 +428,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 2139668143}
-    _tangent: {x: 1.3896238, y: 0.00000011920929, z: 0.00000011920929}
+    _tangent: {x: 1.3896239, y: 0.087218404, z: 0.00000011920929}
     _mode: 0
+    _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 184865103}
     _tangent: {x: 0.77729464, y: 0.26332474, z: -0.7212424}
     _mode: 0
+    _position: {x: 0, y: 0, z: 0}
 --- !u!4 &1160219175
 Transform:
   m_ObjectHideFlags: 0
@@ -430,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1160219173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8, y: 1.36, z: -0.49}
+  m_LocalPosition: {x: 4.51, y: 1.36, z: -0.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2139668143}
