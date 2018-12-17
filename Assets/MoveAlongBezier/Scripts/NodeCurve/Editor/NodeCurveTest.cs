@@ -25,30 +25,17 @@ namespace CleverCrow.Curves.Editors {
             Object.DestroyImmediate(_endPoint.gameObject);
         }
 
-        public class GetStartPointMethod : NodeCurveTest {
-            [Test]
-            public void It_should_convert_point_to_a_CurvePoint_object () {
-                var pointTransform = _curve.Vector3ToPoint(Vector3.one);
-                
-                Assert.AreEqual(Vector3.one, pointTransform.Position);
-            }
-        }
-
         public class StartPoint : NodeCurveTest {
             [Test]
-            public void Returns_the_start_point () {
-                _curve.start = _startPoint;
-                
-                Assert.AreEqual(_startPoint.transform.position, _curve.StartPoint);
+            public void It_should_create_a_default_start_point () {
+                Assert.IsNotNull(_curve.points[0]);
             }
         }
         
         public class EndPoint : NodeCurveTest {
             [Test]
-            public void Returns_the_start_point () {
-                _curve.end = _endPoint;
-                
-                Assert.AreEqual(_endPoint.transform.position, _curve.EndPoint);
+            public void It_should_create_a_default_end_point () {
+                Assert.IsNotNull(_curve.points[1]);
             }
         }
     }

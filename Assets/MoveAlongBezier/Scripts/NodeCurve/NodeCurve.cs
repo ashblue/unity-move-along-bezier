@@ -1,24 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace CleverCrow.Curves {
 	public class NodeCurve : MonoBehaviour {
-		public Transform start;
-		public Vector3[] tangents;
-		
-		public Transform end;
+		public List<CurvePoint> points;
 
-		public Vector3 StartPoint => start.transform.position;
-		public Vector3 EndPoint => end.transform.position;
-		public bool Ready => start != null && end != null;
-
-		public CurvePoint Vector3ToPoint (Vector3 point) {
-			return new CurvePoint(point);
-		}
+		public bool Ready => points[0].transform != null 
+		                     && points[1].transform != null;
 
 		private void Reset () {
-			tangents = new[] {
-				Vector3.left,
-				Vector3.right,
+			points = new List<CurvePoint> {
+				new CurvePoint(),
+				new CurvePoint()
 			};
 		}
 	}
