@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 184865102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: -1.22, z: 1}
+  m_LocalPosition: {x: 3.4, y: -1.22, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160219175}
@@ -312,6 +312,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start: {fileID: 2139668143}
+  tangents:
+  - {x: 1.8330337, y: 2.3039308, z: 1.4629334}
+  - {x: 0.51244175, y: -4.240697, z: -4.3739405}
   end: {fileID: 184865103}
 --- !u!4 &1160219175
 Transform:
@@ -320,7 +323,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1160219173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0.78, z: 0}
+  m_LocalPosition: {x: -0.02, y: 1.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2139668143}
@@ -350,7 +353,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139668142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.56, y: 1.04, z: -1}
+  m_LocalPosition: {x: -3.34, y: 1.71, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160219175}
