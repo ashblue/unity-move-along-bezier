@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CleverCrow.Curves {
@@ -13,6 +14,18 @@ namespace CleverCrow.Curves {
 				new CurvePoint(),
 				new CurvePoint()
 			};
+		}
+
+		private void OnDrawGizmos () {
+#if UNITY_EDITOR
+			// If this object is selected, don't draw our gizmos
+			if (Array.IndexOf(UnityEditor.Selection.gameObjects, gameObject) >= 0) {
+				return;
+			}
+#endif
+			
+			Gizmos.color = Color.gray;
+			Gizmos.DrawLine(points[0].Position, points[points.Count - 1].Position);
 		}
 	}
 }
