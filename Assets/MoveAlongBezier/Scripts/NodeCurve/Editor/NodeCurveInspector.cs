@@ -31,18 +31,21 @@ namespace CleverCrow.Curves.Editors {
             _curve = target as NodeCurve;
             
             EditorGUI.BeginChangeCheck();
-            _curve.points[0].transform = 
-                EditorGUILayout.ObjectField("Start Point", _curve.points[0].transform, typeof(Transform), true) as Transform;
+            var startPoint = _curve.points[0];
+            startPoint.transform = 
+                EditorGUILayout.ObjectField("Start Point", startPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
+                startPoint.SetRelativeTangent(_curve.points[1].Position);
                 Undo.RecordObject(_curve, "Change start point");
                 EditorUtility.SetDirty(_curve);
             }
             
             EditorGUI.BeginChangeCheck();
-            var lastIndex = _curve.points.Count - 1;
-            _curve.points[lastIndex].transform = 
-                EditorGUILayout.ObjectField("Start Point", _curve.points[lastIndex].transform, typeof(Transform), true) as Transform;
+            var endPoint = _curve.points[_curve.points.Count - 1];
+            endPoint.transform = 
+                EditorGUILayout.ObjectField("End Point", endPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
+                endPoint.SetRelativeTangent(_curve.points[_curve.points.Count - 2].Position);
                 Undo.RecordObject(_curve, "Change end point");
                 EditorUtility.SetDirty(_curve);
             }

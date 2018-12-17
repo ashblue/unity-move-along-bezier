@@ -33,5 +33,13 @@ namespace CleverCrow.Curves {
         }
         
         public Vector3 Position => transform == null ? Vector3.zero : transform.position;
+
+        public void SetRelativeTangent (Vector3 target) {
+            var heading = target - Position;
+            var x = Mathf.Clamp(Mathf.Round(heading.x), -1, 1);
+            var z = Mathf.Clamp(Mathf.Round(heading.z), -1, 1);
+            
+            Tangent = new Vector3(x, 0, z);
+        }
     }
 }
