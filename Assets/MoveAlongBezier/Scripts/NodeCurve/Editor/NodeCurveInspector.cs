@@ -64,7 +64,7 @@ namespace CleverCrow.Curves.Editors {
                 (CurveMode)EditorGUILayout.EnumPopup("Set Mode", _curve.points[_selectedIndex].Mode);
             if (EditorGUI.EndChangeCheck()) {
                 EditorUtility.SetDirty(_curve);
-                Undo.RecordObject(_curve, "Tangent type changed");
+                Undo.RegisterCompleteObjectUndo(_curve, "Tangent type changed");
             }
             
             if (_curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
