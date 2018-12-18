@@ -120,6 +120,15 @@ namespace CleverCrow.Curves.Editors {
                     Undo.RecordObject(_curve, "Change selected point");
                 }
             }
+
+            if (_selectedTangent == TangentPoint.None 
+                && !_curve.points[_selectedIndex].isEndPoint
+                && GUILayout.Button("Delete Point")) {
+                
+                _curve.points.RemoveAt(_selectedIndex);
+                EditorUtility.SetDirty(_curve);
+                Undo.RecordObject(_curve, "Delete point");
+            }
         }
 
         private void DrawPoint (int index, CurvePoint point) {
