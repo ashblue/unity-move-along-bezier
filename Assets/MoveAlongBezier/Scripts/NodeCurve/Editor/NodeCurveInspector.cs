@@ -78,10 +78,10 @@ namespace CleverCrow.Curves.Editors {
             EditorGUILayout.LabelField("Point Creator", EditorStyles.boldLabel);
             _newPointPosition = EditorGUILayout.Popup("Point Between", _newPointPosition, _newPointOptions);
             if (GUILayout.Button("Add Point")) {
-                var start = _curve.points[_newPointPosition];
-                var end = _curve.points[_newPointPosition + 1];
+                var start = _curve.transform.InverseTransformPoint(_curve.points[_newPointPosition].GlobalPosition);
+                var end = _curve.transform.InverseTransformPoint(_curve.points[_newPointPosition + 1].GlobalPosition);
                 var point = new CurvePoint {
-                    Position = Vector3.Lerp(start.Position, end.Position, 0.5f),
+                    Position = Vector3.Lerp(start, end, 0.5f),
                     transform = _curve.transform
                 };
 
@@ -122,9 +122,10 @@ namespace CleverCrow.Curves.Editors {
 
         private void DrawPoint (int index, CurvePoint point) {
             Handles.color = point.Mode.GetPointColor();
-            var size = HandleUtility.GetHandleSize(point.Position);
+            var handle = point.GlobalPosition;
+            var size = HandleUtility.GetHandleSize(handle);
 
-            if (Handles.Button(point.Position, point.transform.rotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
+            if (Handles.Button(handle, point.transform.rotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
                 Repaint();
             }

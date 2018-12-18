@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 29219776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4, y: -1.22, z: 1}
+  m_LocalPosition: {x: 9.22, y: -1.22, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 272060837}
@@ -229,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 173959331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.41, y: 1.71, z: 0.38}
+  m_LocalPosition: {x: -9.63, y: -0.16, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 272060837}
@@ -292,26 +292,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 173959332}
-    useTransformPosition: 1
-    _tangentA: {x: 1, y: 0, z: 1}
+    isEndPoint: 1
+    _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 272060837}
-    useTransformPosition: 0
-    _tangentA: {x: -0.6606028, y: 1.4848404, z: 0}
-    _tangentB: {x: -1.3355432, y: 0, z: 0.30413675}
+    isEndPoint: 0
+    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
-    _position: {x: -1.9375, y: 4.9875, z: -3.9950001}
+    _position: {x: -4.48, y: -1.26, z: -0.15}
   - transform: {fileID: 272060837}
-    useTransformPosition: 0
-    _tangentA: {x: -0.10411775, y: -0.8913834, z: 0}
-    _tangentB: {x: 1.4795647, y: 0.9292288, z: 0.36463594}
+    isEndPoint: 0
+    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
-    _position: {x: -0.485, y: 4.255, z: -3.8400002}
+    _position: {x: -0.20499992, y: -0.69000006, z: 0.69}
   - transform: {fileID: 29219777}
-    useTransformPosition: 1
-    _tangentA: {x: -1.0355873, y: 0.9819565, z: -0.06796861}
+    isEndPoint: 1
+    _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
@@ -322,7 +322,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272060835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.98, y: 4.01, z: -4.53}
+  m_LocalPosition: {x: -1.48, y: 7.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173959332}
@@ -436,13 +436,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 2139668143}
-    useTransformPosition: 0
+    isEndPoint: 0
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 184865103}
-    useTransformPosition: 0
+    isEndPoint: 0
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
@@ -461,6 +461,34 @@ Transform:
   - {fileID: 184865103}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1930540632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930540633}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1930540633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1930540632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139668142
 GameObject:
