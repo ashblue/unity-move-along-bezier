@@ -108,8 +108,8 @@ namespace CleverCrow.Curves.Editors {
             
             if (_curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
                 EditorGUI.BeginChangeCheck();
-                _curve.points[_selectedIndex].Tangent =
-                    EditorGUILayout.Vector3Field("Current Tangent", _curve.points[_selectedIndex].Tangent);
+                _curve.points[_selectedIndex].TangentA =
+                    EditorGUILayout.Vector3Field("Current Tangent", _curve.points[_selectedIndex].TangentA);
                 if (EditorGUI.EndChangeCheck()) {
                     EditorUtility.SetDirty(_curve);
                     Undo.RecordObject(_curve, "Change selected point");
@@ -124,7 +124,7 @@ namespace CleverCrow.Curves.Editors {
         }
 
         private Vector3 DrawTangentPoint (Transform origin, int index) {
-            var handle = origin.TransformPoint(_curve.points[index].Tangent);
+            var handle = origin.TransformPoint(_curve.points[index].TangentA);
             var size = HandleUtility.GetHandleSize(handle);
             var handleRotation = Tools.pivotRotation == PivotRotation.Local ?
                 origin.rotation : Quaternion.identity;
@@ -145,7 +145,7 @@ namespace CleverCrow.Curves.Editors {
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(_curve, "Move tangent point");
                     EditorUtility.SetDirty(_curve);
-                    _curve.points[index].Tangent = origin.InverseTransformPoint(handle);
+                    _curve.points[index].TangentA = origin.InverseTransformPoint(handle);
                 }
             }
 

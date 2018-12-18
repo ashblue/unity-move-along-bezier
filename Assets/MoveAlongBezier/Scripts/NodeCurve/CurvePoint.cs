@@ -7,27 +7,25 @@ namespace CleverCrow.Curves {
         public Transform transform;
         
         [SerializeField]
-        private Vector3 _tangent = Vector3.right;
+        private Vector3 _tangentA = Vector3.left;
+        
+        [SerializeField]
+        private Vector3 _tangentB = Vector3.right;
 
         [SerializeField]
         private CurveMode _mode;
 
-        [SerializeField] 
+        [SerializeField]
         private Vector3 _position;
         
-        public Vector3 Tangent {
-            get {
-                switch (_mode) {
-                    case CurveMode.Free:
-                        return _tangent;
-                    case CurveMode.StraightLine:
-                        return Vector3.zero;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            set => _tangent = value;
+        public Vector3 TangentA {
+            get => EnforceTangentMode(_tangentA);
+            set => _tangentA = value;
+        }
+        
+        public Vector3 TangentB {
+            get => EnforceTangentMode(_tangentB);
+            set => _tangentB = value;
         }
 
         public CurveMode Mode {
@@ -45,7 +43,18 @@ namespace CleverCrow.Curves {
             var x = Mathf.Clamp(Mathf.Round(heading.x), -1, 1);
             var z = Mathf.Clamp(Mathf.Round(heading.z), -1, 1);
             
-            Tangent = new Vector3(x, 0, z);
+            TangentA = new Vector3(x, 0, z);
+        }
+
+        private Vector3 EnforceTangentMode (Vector3 tangent) {
+            switch (_mode) {
+                case CurveMode.Free:
+                    return tangent;
+                case CurveMode.StraightLine:
+                    return Vector3.zero;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
