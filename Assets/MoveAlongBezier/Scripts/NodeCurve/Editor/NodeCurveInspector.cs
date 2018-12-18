@@ -10,11 +10,12 @@ namespace CleverCrow.Curves.Editors {
 
         private NodeCurve _curve;
         private int _selectedIndex;
+        private TangentPoint _selectedTangent;
 
         private int _newPointPosition;
         private List<Vector2> _newPointPositions;
         private string[] _newPointOptions;
-
+        
         private void OnSceneGUI () {
             _curve = target as NodeCurve;
             if (!_curve.Ready) return;
@@ -22,11 +23,11 @@ namespace CleverCrow.Curves.Editors {
             for (var i = 0; i < _curve.points.Count - 1; i += 1) {
                 var startPoint = _curve.points[i];
                 DrawPoint(startPoint);
-                var startTangent = DrawTangentPoint(i);
+                var startTangent = DrawTangentPoint(i, TangentPoint.B);
                 
                 var endPoint = _curve.points[i + 1];
                 DrawPoint(endPoint);
-                var endTangent = DrawTangentPoint(i + 1);
+                var endTangent = DrawTangentPoint(i + 1, TangentPoint.A);
                 
                 Handles.DrawBezier(startPoint.Position, endPoint.Position, startTangent, endTangent, Color.white, null, 2f);
             }
@@ -94,7 +95,7 @@ namespace CleverCrow.Curves.Editors {
             EditorGUILayout.LabelField("Current Point", EditorStyles.boldLabel);
 
             GUI.enabled = false;
-            EditorGUILayout.Vector3Field("Current Position", _curve.points[_selectedIndex].Position);
+            EditorGUILayout.Vector3Field("Point Position", _curve.points[_selectedIndex].Position);
             GUI.enabled = true;
 
             EditorGUI.BeginChangeCheck();
@@ -107,8 +108,9 @@ namespace CleverCrow.Curves.Editors {
             
             if (_curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
                 EditorGUI.BeginChangeCheck();
-                _curve.points[_selectedIndex].TangentA =
-                    EditorGUILayout.Vector3Field("Current Tangent", _curve.points[_selectedIndex].TangentA);
+                var newTangent = EditorGUILayout.Vector3Field("Selected Tangent",
+                    _curve.points[_selectedIndex].GetTangent(_selectedTangent));
+                _curve.points[_selectedIndex].SetTangent(_selectedTangent, newTangent);
                 if (EditorGUI.EndChangeCheck()) {
                     EditorUtility.SetDirty(_curve);
                     Undo.RecordObject(_curve, "Change selected point");
@@ -122,9 +124,10 @@ namespace CleverCrow.Curves.Editors {
             Handles.SphereHandleCap(0, point.Position, _curve.transform.rotation, pointSize, EventType.Repaint);
         }
 
-        private Vector3 DrawTangentPoint (int index) {
+        private Vector3 DrawTangentPoint (int index, TangentPoint tangentPoint) {
             var point = _curve.points[index];
-            var handle = point.transform.TransformPoint(_curve.points[index].TangentA);
+            var tangent = _curve.points[index].GetTangent(tangentPoint);
+            var handle = point.transform.TransformPoint(tangent);
             var size = HandleUtility.GetHandleSize(handle);
             var handleRotation = Tools.pivotRotation == PivotRotation.Local ?
                 point.transform.rotation : Quaternion.identity;
@@ -135,17 +138,18 @@ namespace CleverCrow.Curves.Editors {
             Handles.color = point.Mode.GetTangentColor();
             if (Handles.Button(handle, handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
+                _selectedTangent = tangentPoint;
                 Repaint();
             }
             
-            if (_selectedIndex == index) {
+            if (_selectedIndex == index && _selectedTangent == tangentPoint) {
                 EditorGUI.BeginChangeCheck();
                 handle = Handles.DoPositionHandle(handle, handleRotation);
                 
                 if (EditorGUI.EndChangeCheck()) {
+                    point.SetTangent(tangentPoint, point.transform.InverseTransformPoint(handle));
                     Undo.RecordObject(_curve, "Move tangent point");
                     EditorUtility.SetDirty(_curve);
-                    _curve.points[index].TangentA = point.transform.InverseTransformPoint(handle);
                 }
             }
 

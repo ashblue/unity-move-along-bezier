@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 130365837}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 2.9, y: 3, z: 1.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -229,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 173959331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.41, y: 1.71, z: -1.9}
+  m_LocalPosition: {x: -2.41, y: 1.71, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 272060837}
@@ -292,17 +292,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 173959332}
-    _tangentA: {x: 1.3190601, y: -0.00000011920929, z: 0.99999994}
-    _tangentB: {x: 1, y: 0, z: 0}
+    _tangentA: {x: 1, y: 0, z: 1}
+    _tangentB: {x: 0.9955962, y: -0.0956707, z: -0.00000011920929}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 272060837}
-    _tangentA: {x: -1.4122479, y: 0.8513044, z: 0.27262783}
+    _tangentA: {x: -1, y: 1, z: 1}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
-    _position: {x: -0.41500008, y: 1.615, z: -0.75}
+    _position: {x: -2.185, y: 4.435, z: -3.91}
+  - transform: {fileID: 272060837}
+    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentB: {x: 1, y: 0, z: 0}
+    _mode: 0
+    _position: {x: -2.185, y: 4.435, z: -3.91}
+  - transform: {fileID: 272060837}
+    _tangentA: {x: -0.2997403, y: 0, z: -1.0934443}
+    _tangentB: {x: 1, y: 0, z: 0}
+    _mode: 1
+    _position: {x: -0.485, y: 2.935, z: -2.31}
+  - transform: {fileID: 272060837}
+    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentB: {x: 1, y: 0, z: 0}
+    _mode: 0
+    _position: {x: 0.72, y: 2.9699998, z: -2.46}
   - transform: {fileID: 29219777}
-    _tangentA: {x: -0.16601992, y: 0, z: -2.0685048}
+    _tangentA: {x: -0.3025005, y: 0, z: -2.1913075}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
@@ -313,7 +328,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272060835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.91, y: 2.11, z: -0.3}
+  m_LocalPosition: {x: -0.98, y: 3.58, z: -4.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173959332}

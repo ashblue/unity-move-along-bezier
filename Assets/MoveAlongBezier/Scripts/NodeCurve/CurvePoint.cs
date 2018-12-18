@@ -46,6 +46,30 @@ namespace CleverCrow.Curves {
             TangentA = new Vector3(x, 0, z);
         }
 
+        public Vector3 GetTangent (TangentPoint tangentPoint) {
+            switch (tangentPoint) {
+                case TangentPoint.A:
+                    return TangentA;
+                case TangentPoint.B:
+                    return TangentB;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tangentPoint), tangentPoint, null);
+            }
+        }
+
+        public void SetTangent (TangentPoint tangentPoint, Vector3 position) {
+            switch (tangentPoint) {
+                case TangentPoint.A:
+                    TangentA = position;
+                    break;
+                case TangentPoint.B:
+                    TangentB = position;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tangentPoint), tangentPoint, null);
+            }
+        }
+
         private Vector3 EnforceTangentMode (Vector3 tangent) {
             switch (_mode) {
                 case CurveMode.Free:
