@@ -22,11 +22,11 @@ namespace CleverCrow.Curves.Editors {
 
             for (var i = 0; i < _curve.points.Count - 1; i += 1) {
                 var startPoint = _curve.points[i];
-                DrawPoint(i, startPoint);
+                if (i == 0) DrawPoint(i, startPoint);
                 var startTangent = DrawTangentPoint(i, TangentPoint.B);
                 
                 var endPoint = _curve.points[i + 1];
-                DrawPoint(i, endPoint);
+                DrawPoint(i + 1, endPoint);
                 var endTangent = DrawTangentPoint(i + 1, TangentPoint.A);
                 
                 Handles.DrawBezier(startPoint.GlobalPosition, endPoint.GlobalPosition, startTangent, endTangent, Color.white, null, 2f);
@@ -109,7 +109,8 @@ namespace CleverCrow.Curves.Editors {
                 Undo.RegisterCompleteObjectUndo(_curve, "Tangent type changed");
             }
             
-            if (_curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
+            if (_selectedTangent != TangentPoint.None 
+                && _curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
                 EditorGUI.BeginChangeCheck();
                 var newTangent = EditorGUILayout.Vector3Field("Selected Tangent",
                     _curve.points[_selectedIndex].GetTangent(_selectedTangent));
@@ -125,10 +126,24 @@ namespace CleverCrow.Curves.Editors {
             Handles.color = point.Mode.GetPointColor();
             var handle = point.GlobalPosition;
             var size = HandleUtility.GetHandleSize(handle);
+            var handleRotation = Tools.pivotRotation == PivotRotation.Local ?
+                point.transform.rotation : Quaternion.identity;
 
             if (Handles.Button(handle, point.transform.rotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
+                _selectedTangent = TangentPoint.None;
                 Repaint();
+            }
+            
+            if (_selectedIndex == index && _selectedTangent == TangentPoint.None) {
+                EditorGUI.BeginChangeCheck();
+                handle = Handles.DoPositionHandle(handle, handleRotation);
+                
+                if (EditorGUI.EndChangeCheck()) {
+                    point.Position = point.transform.InverseTransformPoint(handle);
+                    Undo.RecordObject(_curve, "Move point position");
+                    EditorUtility.SetDirty(_curve);
+                }
             }
         }
 
