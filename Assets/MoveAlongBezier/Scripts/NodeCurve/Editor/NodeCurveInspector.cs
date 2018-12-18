@@ -36,6 +36,8 @@ namespace CleverCrow.Curves.Editors {
         public override void OnInspectorGUI () {
             _curve = target as NodeCurve;
             
+            DrawDefaultInspector();
+            
             EditorGUI.BeginChangeCheck();
             var startPoint = _curve.points[0];
             startPoint.transform = 

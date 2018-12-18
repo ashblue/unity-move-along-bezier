@@ -305,7 +305,7 @@ MonoBehaviour:
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
-    _position: {x: -2.185, y: 4.435, z: -3.91}
+    _position: {x: 2.7, y: -3.43, z: -9.15}
   - transform: {fileID: 272060837}
     _tangentA: {x: -0.2997403, y: 0, z: -1.0934443}
     _tangentB: {x: 1, y: 0, z: 0}
