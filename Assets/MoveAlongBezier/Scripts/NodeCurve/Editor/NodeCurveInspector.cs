@@ -29,7 +29,7 @@ namespace CleverCrow.Curves.Editors {
                 DrawPoint(i, endPoint);
                 var endTangent = DrawTangentPoint(i + 1, TangentPoint.A);
                 
-                Handles.DrawBezier(startPoint.Position, endPoint.Position, startTangent, endTangent, Color.white, null, 2f);
+                Handles.DrawBezier(startPoint.GlobalPosition, endPoint.GlobalPosition, startTangent, endTangent, Color.white, null, 2f);
             }
         }
 
@@ -133,14 +133,13 @@ namespace CleverCrow.Curves.Editors {
 
         private Vector3 DrawTangentPoint (int index, TangentPoint tangentPoint) {
             var point = _curve.points[index];
-            var tangent = _curve.points[index].GetTangent(tangentPoint);
-            var handle = point.transform.TransformPoint(tangent);
+            var handle = point.GetTangent(tangentPoint) + point.GlobalPosition;
             var size = HandleUtility.GetHandleSize(handle);
             var handleRotation = Tools.pivotRotation == PivotRotation.Local ?
                 point.transform.rotation : Quaternion.identity;
             
             Handles.color = Color.gray;
-            Handles.DrawLine(point.Position, handle);
+            Handles.DrawLine(point.GlobalPosition, handle);
             
             Handles.color = point.Mode.GetTangentColor();
             if (Handles.Button(handle, handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
@@ -154,7 +153,7 @@ namespace CleverCrow.Curves.Editors {
                 handle = Handles.DoPositionHandle(handle, handleRotation);
                 
                 if (EditorGUI.EndChangeCheck()) {
-                    point.SetTangent(tangentPoint, point.transform.InverseTransformPoint(handle));
+                    point.SetTangent(tangentPoint, handle - point.GlobalPosition);
                     Undo.RecordObject(_curve, "Move tangent point");
                     EditorUtility.SetDirty(_curve);
                 }

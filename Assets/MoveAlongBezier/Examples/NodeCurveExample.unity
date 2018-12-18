@@ -294,24 +294,24 @@ MonoBehaviour:
   - transform: {fileID: 173959332}
     isEndPoint: 1
     _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 1, y: 0, z: 0}
-    _mode: 0
+    _tangentB: {x: 0.66374207, y: 2.1785603, z: 0}
+    _mode: 1
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 272060837}
     isEndPoint: 0
-    _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 1, y: 0, z: 0}
-    _mode: 0
-    _position: {x: -4.48, y: -1.26, z: -0.15}
+    _tangentA: {x: -1.2216206, y: 0.9040518, z: 0}
+    _tangentB: {x: 1.5406289, y: 0.7242861, z: 1.0910645}
+    _mode: 1
+    _position: {x: -3.1, y: 0, z: 0}
   - transform: {fileID: 272060837}
     isEndPoint: 0
-    _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 1, y: 0, z: 0}
-    _mode: 0
+    _tangentA: {x: -0.48913598, y: -2.5064793, z: 0.42587095}
+    _tangentB: {x: 2.050634, y: 0.65738964, z: -1.0944583}
+    _mode: 1
     _position: {x: -0.20499992, y: -0.69000006, z: 0.69}
   - transform: {fileID: 29219777}
     isEndPoint: 1
-    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentA: {x: 0.12918282, y: 1.434001, z: -5.6556396}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
@@ -322,7 +322,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272060835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.48, y: 7.83, z: 0}
+  m_LocalPosition: {x: -3.36, y: 11.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173959332}
