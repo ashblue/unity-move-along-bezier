@@ -292,32 +292,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 173959332}
+    useTransformPosition: 1
     _tangentA: {x: 1, y: 0, z: 1}
-    _tangentB: {x: 0.9955962, y: -0.0956707, z: -0.00000011920929}
+    _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 272060837}
-    _tangentA: {x: -1, y: 1, z: 1}
-    _tangentB: {x: 1, y: 0, z: 0}
+    useTransformPosition: 0
+    _tangentA: {x: -0.6606028, y: 1.4848404, z: 0}
+    _tangentB: {x: -1.3355432, y: 0, z: 0.30413675}
     _mode: 0
-    _position: {x: -2.185, y: 4.435, z: -3.91}
+    _position: {x: -1.9375, y: 4.9875, z: -3.9950001}
   - transform: {fileID: 272060837}
-    _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 1, y: 0, z: 0}
+    useTransformPosition: 0
+    _tangentA: {x: -0.10411775, y: -0.8913834, z: 0}
+    _tangentB: {x: 1.4795647, y: 0.9292288, z: 0.36463594}
     _mode: 0
-    _position: {x: 2.7, y: -3.43, z: -9.15}
-  - transform: {fileID: 272060837}
-    _tangentA: {x: -0.2997403, y: 0, z: -1.0934443}
-    _tangentB: {x: 1, y: 0, z: 0}
-    _mode: 1
-    _position: {x: -0.485, y: 2.935, z: -2.31}
-  - transform: {fileID: 272060837}
-    _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 1, y: 0, z: 0}
-    _mode: 0
-    _position: {x: 0.72, y: 2.9699998, z: -2.46}
+    _position: {x: -0.485, y: 4.255, z: -3.8400002}
   - transform: {fileID: 29219777}
-    _tangentA: {x: -0.3025005, y: 0, z: -2.1913075}
+    useTransformPosition: 1
+    _tangentA: {x: -1.0355873, y: 0.9819565, z: -0.06796861}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
@@ -328,7 +322,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272060835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.98, y: 3.58, z: -4.53}
+  m_LocalPosition: {x: -0.98, y: 4.01, z: -4.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173959332}
@@ -442,11 +436,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - transform: {fileID: 2139668143}
+    useTransformPosition: 0
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 184865103}
+    useTransformPosition: 0
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0

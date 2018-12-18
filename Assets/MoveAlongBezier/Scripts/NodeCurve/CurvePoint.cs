@@ -5,6 +5,7 @@ namespace CleverCrow.Curves {
     [Serializable]
     public class CurvePoint {
         public Transform transform;
+        public bool useTransformPosition;
         
         [SerializeField]
         private Vector3 _tangentA = Vector3.left;
@@ -34,7 +35,8 @@ namespace CleverCrow.Curves {
         }
 
         public Vector3 Position {
-            get => transform == null ? _position : transform.position;
+            get => useTransformPosition && transform != null 
+                ? transform.position : _position;
             set => _position = value;
         }
 

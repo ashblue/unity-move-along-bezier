@@ -11,8 +11,8 @@ namespace CleverCrow.Curves {
 
 		private void Reset () {
 			points = new List<CurvePoint> {
-				new CurvePoint(),
-				new CurvePoint()
+				new CurvePoint {useTransformPosition = true},
+				new CurvePoint {useTransformPosition = true}
 			};
 		}
 

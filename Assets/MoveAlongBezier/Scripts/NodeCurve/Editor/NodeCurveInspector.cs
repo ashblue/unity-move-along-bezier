@@ -22,11 +22,11 @@ namespace CleverCrow.Curves.Editors {
 
             for (var i = 0; i < _curve.points.Count - 1; i += 1) {
                 var startPoint = _curve.points[i];
-                DrawPoint(startPoint);
+                DrawPoint(i, startPoint);
                 var startTangent = DrawTangentPoint(i, TangentPoint.B);
                 
                 var endPoint = _curve.points[i + 1];
-                DrawPoint(endPoint);
+                DrawPoint(i, endPoint);
                 var endTangent = DrawTangentPoint(i + 1, TangentPoint.A);
                 
                 Handles.DrawBezier(startPoint.Position, endPoint.Position, startTangent, endTangent, Color.white, null, 2f);
@@ -120,10 +120,14 @@ namespace CleverCrow.Curves.Editors {
             }
         }
 
-        private void DrawPoint (CurvePoint point) {
+        private void DrawPoint (int index, CurvePoint point) {
             Handles.color = point.Mode.GetPointColor();
-            var pointSize = HandleUtility.GetHandleSize(point.Position) * PICK_SIZE;
-            Handles.SphereHandleCap(0, point.Position, _curve.transform.rotation, pointSize, EventType.Repaint);
+            var size = HandleUtility.GetHandleSize(point.Position);
+
+            if (Handles.Button(point.Position, point.transform.rotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
+                _selectedIndex = index;
+                Repaint();
+            }
         }
 
         private Vector3 DrawTangentPoint (int index, TangentPoint tangentPoint) {
