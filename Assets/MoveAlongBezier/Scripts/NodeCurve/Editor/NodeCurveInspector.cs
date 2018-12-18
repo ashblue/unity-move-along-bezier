@@ -21,11 +21,11 @@ namespace CleverCrow.Curves.Editors {
 
             for (var i = 0; i < _curve.points.Count - 1; i += 1) {
                 var startPoint = _curve.points[i];
-                DrawPoint(startPoint.Position);
+                DrawPoint(startPoint);
                 var startTangent = DrawTangentPoint(i);
                 
                 var endPoint = _curve.points[i + 1];
-                DrawPoint(endPoint.Position);
+                DrawPoint(endPoint);
                 var endTangent = DrawTangentPoint(i + 1);
                 
                 Handles.DrawBezier(startPoint.Position, endPoint.Position, startTangent, endTangent, Color.white, null, 2f);
@@ -116,10 +116,10 @@ namespace CleverCrow.Curves.Editors {
             }
         }
 
-        private void DrawPoint (Vector3 startPoint) {
-            Handles.color = Color.white;
-            var startHandleSize = HandleUtility.GetHandleSize(startPoint) * HANDLE_SIZE;
-            Handles.SphereHandleCap(0, startPoint, _curve.transform.rotation, startHandleSize, EventType.Repaint);
+        private void DrawPoint (CurvePoint point) {
+            Handles.color = point.Mode.GetPointColor();
+            var pointSize = HandleUtility.GetHandleSize(point.Position) * PICK_SIZE;
+            Handles.SphereHandleCap(0, point.Position, _curve.transform.rotation, pointSize, EventType.Repaint);
         }
 
         private Vector3 DrawTangentPoint (int index) {
@@ -132,7 +132,7 @@ namespace CleverCrow.Curves.Editors {
             Handles.color = Color.gray;
             Handles.DrawLine(point.Position, handle);
             
-            Handles.color = Color.red;
+            Handles.color = point.Mode.GetTangentColor();
             if (Handles.Button(handle, handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
                 Repaint();
