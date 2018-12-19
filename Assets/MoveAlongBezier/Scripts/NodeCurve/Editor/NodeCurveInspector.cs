@@ -94,7 +94,8 @@ namespace CleverCrow.Curves.Editors {
 
         private void InspectorCurrentPoint () {
             if (_selectedIndex >= _curve.points.Count) return;
-            
+
+            var point = _curve.points[_selectedIndex];
             EditorGUILayout.LabelField("Current Point", EditorStyles.boldLabel);
 
             GUI.enabled = false;
@@ -102,19 +103,21 @@ namespace CleverCrow.Curves.Editors {
             GUI.enabled = true;
 
             EditorGUI.BeginChangeCheck();
-            _curve.points[_selectedIndex].Mode =
+            point.Mode =
                 (CurveMode)EditorGUILayout.EnumPopup("Set Mode", _curve.points[_selectedIndex].Mode);
             if (EditorGUI.EndChangeCheck()) {
+                point.EnforceTangents(_selectedTangent);
                 EditorUtility.SetDirty(_curve);
                 Undo.RegisterCompleteObjectUndo(_curve, "Tangent type changed");
             }
             
             if (_selectedTangent != TangentPoint.None 
-                && _curve.points[_selectedIndex].Mode != CurveMode.StraightLine) {
+                && point.Mode != CurveMode.StraightLine) {
                 EditorGUI.BeginChangeCheck();
-                var newTangent = EditorGUILayout.Vector3Field("Selected Tangent",
-                    _curve.points[_selectedIndex].GetTangent(_selectedTangent));
-                _curve.points[_selectedIndex].SetTangent(_selectedTangent, newTangent);
+                var newTangent = EditorGUILayout.Vector3Field("Selected Tangent", point.GetTangent(_selectedTangent));
+                point.SetTangent(_selectedTangent, newTangent);
+                point.EnforceTangents(_selectedTangent);
+
                 if (EditorGUI.EndChangeCheck()) {
                     EditorUtility.SetDirty(_curve);
                     Undo.RecordObject(_curve, "Change selected point");
@@ -180,6 +183,7 @@ namespace CleverCrow.Curves.Editors {
                 
                 if (EditorGUI.EndChangeCheck()) {
                     point.SetTangent(tangentPoint, handle - point.GlobalPosition);
+                    point.EnforceTangents(tangentPoint);
                     Undo.RecordObject(_curve, "Move tangent point");
                     EditorUtility.SetDirty(_curve);
                 }

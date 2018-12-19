@@ -19,15 +19,8 @@ namespace CleverCrow.Curves {
         [SerializeField]
         private Vector3 _position;
         
-        public Vector3 TangentA {
-            get => EnforceTangentMode(_tangentA);
-            set => _tangentA = value;
-        }
-        
-        public Vector3 TangentB {
-            get => EnforceTangentMode(_tangentB);
-            set => _tangentB = value;
-        }
+        public Vector3 TangentA => _tangentA;
+        public Vector3 TangentB => _tangentB;
 
         public CurveMode Mode {
             get => _mode;
@@ -53,10 +46,12 @@ namespace CleverCrow.Curves {
             var x = Mathf.Clamp(Mathf.Round(heading.x), -1, 1);
             var z = Mathf.Clamp(Mathf.Round(heading.z), -1, 1);
             
-            TangentA = new Vector3(x, 0, z);
+            _tangentA = new Vector3(x, 0, z);
         }
 
         public Vector3 GetTangent (TangentPoint tangentPoint) {
+            if (Mode == CurveMode.StraightLine) return Vector3.zero;
+            
             switch (tangentPoint) {
                 case TangentPoint.A:
                     return TangentA;
@@ -70,22 +65,34 @@ namespace CleverCrow.Curves {
         public void SetTangent (TangentPoint tangentPoint, Vector3 position) {
             switch (tangentPoint) {
                 case TangentPoint.A:
-                    TangentA = position;
+                    _tangentA = position;
                     break;
                 case TangentPoint.B:
-                    TangentB = position;
+                    _tangentB = position;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tangentPoint), tangentPoint, null);
             }
         }
+        
+        public void EnforceTangents (TangentPoint currentTangent) {
+            if (currentTangent == TangentPoint.None) currentTangent = TangentPoint.A;
+            
+            var siblingTangent = currentTangent == TangentPoint.A ? TangentPoint.B : TangentPoint.A;
+            var enforcedTangent = GetTangent(currentTangent) * -1;
 
-        private Vector3 EnforceTangentMode (Vector3 tangent) {
             switch (_mode) {
                 case CurveMode.Free:
-                    return tangent;
+                    break;
                 case CurveMode.StraightLine:
-                    return Vector3.zero;
+                    // Allow tangent retrieval to override so we don't overwrite it
+                    break;
+                case CurveMode.Aligned:
+                    SetTangent(siblingTangent, enforcedTangent.normalized * Vector3.Distance(Vector3.zero, GetTangent(siblingTangent)));
+                    break;
+                case CurveMode.Mirrored:
+                    SetTangent(siblingTangent, enforcedTangent);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

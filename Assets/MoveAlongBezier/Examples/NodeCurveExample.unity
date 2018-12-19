@@ -271,10 +271,10 @@ MonoBehaviour:
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 272060837}
     isEndPoint: 0
-    _tangentA: {x: -1, y: 0, z: 0}
-    _tangentB: {x: 2.3949037, y: 0, z: 1.4149284}
-    _mode: 0
-    _position: {x: -1.6224637, y: -2.6282692, z: 1.6681664}
+    _tangentA: {x: -3.5849977, y: -0.9559002, z: -2.8949294}
+    _tangentB: {x: 3.3784072, y: 0.9008151, z: 2.728105}
+    _mode: 2
+    _position: {x: -1.2878222, y: -1.9043131, z: 3.4665968}
   - transform: {fileID: 29219777}
     isEndPoint: 1
     _tangentA: {x: -1, y: 0, z: -1}

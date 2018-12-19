@@ -4,7 +4,9 @@ using UnityEngine;
 namespace CleverCrow.Curves {
     public enum CurveMode {
         Free,
-        StraightLine
+        StraightLine,
+        Aligned,
+        Mirrored
     }
 
     public static class CurveModeExtensions {
@@ -14,6 +16,10 @@ namespace CleverCrow.Curves {
                     return Color.cyan;
                 case CurveMode.StraightLine:
                     return Color.red;
+                case CurveMode.Aligned:
+                    return Color.cyan;
+                case CurveMode.Mirrored:
+                    return Color.cyan;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(curveMode), curveMode, null);
             }
@@ -25,6 +31,10 @@ namespace CleverCrow.Curves {
                     return Color.green;
                 case CurveMode.StraightLine:
                     return Color.red;
+                case CurveMode.Aligned:
+                    return Color.yellow;
+                case CurveMode.Mirrored:
+                    return Color.blue;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(curveMode), curveMode, null);
             }
