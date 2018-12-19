@@ -12,7 +12,7 @@ namespace CleverCrow.Curves {
             _progress += Time.deltaTime / duration;
             
             if (_progress > 1f) {
-                _progress = 1f;
+                _progress = 0f;
             }
 
             var pos = spline.GetPoint(_progress);
