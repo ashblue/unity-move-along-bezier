@@ -41,9 +41,9 @@ namespace CleverCrow.Curves.Editors {
             startPoint.transform = 
                 EditorGUILayout.ObjectField("Start Point", startPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
-                startPoint.SetRelativeTangent(_curve.points[1].Position);
                 Undo.RecordObject(_curve, "Change start point");
                 EditorUtility.SetDirty(_curve);
+                startPoint.SetRelativeTangent(_curve.points[1].Position);
             }
             
             EditorGUI.BeginChangeCheck();
@@ -51,9 +51,9 @@ namespace CleverCrow.Curves.Editors {
             endPoint.transform = 
                 EditorGUILayout.ObjectField("End Point", endPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
-                endPoint.SetRelativeTangent(_curve.points[_curve.points.Count - 2].Position);
                 Undo.RecordObject(_curve, "Change end point");
                 EditorUtility.SetDirty(_curve);
+                endPoint.SetRelativeTangent(_curve.points[_curve.points.Count - 2].Position);
             }
 
             AddNewPoint();
@@ -86,9 +86,9 @@ namespace CleverCrow.Curves.Editors {
                     transform = _curve.transform
                 };
 
-                _curve.points.Insert(_newPointPosition + 1, point);
                 Undo.RecordObject(_curve, "Add Point");
                 EditorUtility.SetDirty(_curve);
+                _curve.points.Insert(_newPointPosition + 1, point);
             }
         }
 
@@ -98,29 +98,33 @@ namespace CleverCrow.Curves.Editors {
             var point = _curve.points[_selectedIndex];
             EditorGUILayout.LabelField("Current Point", EditorStyles.boldLabel);
 
-            GUI.enabled = false;
-            EditorGUILayout.Vector3Field("Point Position", _curve.points[_selectedIndex].Position);
-            GUI.enabled = true;
-
             EditorGUI.BeginChangeCheck();
-            point.Mode =
-                (CurveMode)EditorGUILayout.EnumPopup("Set Mode", _curve.points[_selectedIndex].Mode);
+            var pointPosition = EditorGUILayout.Vector3Field("Point Position", point.Position);
             if (EditorGUI.EndChangeCheck()) {
-                point.EnforceTangents(_selectedTangent);
                 EditorUtility.SetDirty(_curve);
-                Undo.RegisterCompleteObjectUndo(_curve, "Tangent type changed");
+                Undo.RecordObject(_curve, "Move selected point");
+                point.Position = pointPosition;
+            }
+            
+            EditorGUI.BeginChangeCheck();
+            var mode = (CurveMode)EditorGUILayout.EnumPopup("Set Mode", point.Mode);
+            if (EditorGUI.EndChangeCheck()) {
+                EditorUtility.SetDirty(_curve);
+                Undo.RecordObject(_curve, "Changed tangent type");
+                point.EnforceTangents(_selectedTangent);
+                point.Mode = mode;
             }
             
             if (_selectedTangent != TangentPoint.None 
                 && point.Mode != CurveMode.StraightLine) {
                 EditorGUI.BeginChangeCheck();
                 var newTangent = EditorGUILayout.Vector3Field("Selected Tangent", point.GetTangent(_selectedTangent));
-                point.SetTangent(_selectedTangent, newTangent);
-                point.EnforceTangents(_selectedTangent);
 
                 if (EditorGUI.EndChangeCheck()) {
                     EditorUtility.SetDirty(_curve);
-                    Undo.RecordObject(_curve, "Change selected point");
+                    Undo.RecordObject(_curve, "Move selected tangent");
+                    point.SetTangent(_selectedTangent, newTangent);
+                    point.EnforceTangents(_selectedTangent);
                 }
             }
 
@@ -128,9 +132,9 @@ namespace CleverCrow.Curves.Editors {
                 && !_curve.points[_selectedIndex].isEndPoint
                 && GUILayout.Button("Delete Point")) {
                 
-                _curve.points.RemoveAt(_selectedIndex);
                 EditorUtility.SetDirty(_curve);
                 Undo.RecordObject(_curve, "Delete point");
+                _curve.points.RemoveAt(_selectedIndex);
             }
         }
 
@@ -152,9 +156,9 @@ namespace CleverCrow.Curves.Editors {
                 handle = Handles.DoPositionHandle(handle, handleRotation);
                 
                 if (EditorGUI.EndChangeCheck()) {
-                    point.Position = point.transform.InverseTransformPoint(handle);
                     Undo.RecordObject(_curve, "Move point position");
                     EditorUtility.SetDirty(_curve);
+                    point.Position = point.transform.InverseTransformPoint(handle);
                 }
             }
         }
@@ -180,12 +184,12 @@ namespace CleverCrow.Curves.Editors {
             if (_selectedIndex == index && _selectedTangent == tangentPoint) {
                 EditorGUI.BeginChangeCheck();
                 handle = Handles.DoPositionHandle(handle, handleRotation);
-                
+
                 if (EditorGUI.EndChangeCheck()) {
-                    point.SetTangent(tangentPoint, handle - point.GlobalPosition);
-                    point.EnforceTangents(tangentPoint);
                     Undo.RecordObject(_curve, "Move tangent point");
                     EditorUtility.SetDirty(_curve);
+                    point.SetTangent(tangentPoint, handle - point.GlobalPosition);
+                    point.EnforceTangents(tangentPoint);
                 }
             }
 
