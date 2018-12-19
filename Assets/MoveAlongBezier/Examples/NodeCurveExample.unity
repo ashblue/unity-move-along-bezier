@@ -266,9 +266,15 @@ MonoBehaviour:
   - transform: {fileID: 173959332}
     isEndPoint: 1
     _tangentA: {x: 1, y: 0, z: -1}
-    _tangentB: {x: 2.2990065, y: 0, z: 4.7202754}
+    _tangentB: {x: 2.2990065, y: 2.6230478, z: 1.8189511}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
+  - transform: {fileID: 272060837}
+    isEndPoint: 0
+    _tangentA: {x: -1, y: 0, z: 0}
+    _tangentB: {x: 2.3949037, y: 0, z: 1.4149284}
+    _mode: 0
+    _position: {x: -1.6224637, y: -2.6282692, z: 1.6681664}
   - transform: {fileID: 29219777}
     isEndPoint: 1
     _tangentA: {x: -1, y: 0, z: -1}

@@ -167,7 +167,8 @@ namespace CleverCrow.Curves.Editors {
             Handles.DrawLine(point.GlobalPosition, handle);
             
             Handles.color = point.Mode.GetTangentColor();
-            if (Handles.Button(handle, handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
+            if (point.Mode != CurveMode.StraightLine
+                && Handles.Button(handle, handleRotation, size * HANDLE_SIZE, size * PICK_SIZE, Handles.DotHandleCap)) {
                 _selectedIndex = index;
                 _selectedTangent = tangentPoint;
                 Repaint();
