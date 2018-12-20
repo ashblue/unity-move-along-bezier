@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace CleverCrow.Curves {
 	public class NodeCurve : MonoBehaviour {
+		[Tooltip("Number of nav mesh points generated to follow. Increase the number for more accurate traversal")]
+		public int samplePoints = 10;
 		public List<CurvePoint> points;
 
 		public int CurveCount => points.Count - 1;
