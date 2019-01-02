@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace CleverCrow.Curves {
-    public class CurveBase : MonoBehaviour, ICurve {
+    public abstract class CurveBase : MonoBehaviour, ICurve {
         [FormerlySerializedAs("points")]
         [SerializeField]
         private List<CurvePoint> _points;
@@ -14,7 +14,9 @@ namespace CleverCrow.Curves {
             get => _points;
             protected set => _points = value;
         }
-        
+
+        public virtual bool Ready => true;
+
         /// <summary>
         /// Retrieve progress as a 0 - 1 value
         /// </summary>
@@ -46,7 +48,7 @@ namespace CleverCrow.Curves {
 #endif
 			
             Gizmos.color = Color.gray;
-            Gizmos.DrawLine(Points[0].Position, Points[Points.Count - 1].Position);
+            Gizmos.DrawLine(Points[0].GlobalPosition, Points[Points.Count - 1].GlobalPosition);
         }
     }
 }
