@@ -8,6 +8,7 @@ namespace CleverCrow.Curves.Editors {
             _curve = target as CurveBase;
 
             AddPoint();
+            InspectorCurrentPoint();
             
             EditorGUILayout.LabelField("Debug", EditorStyles.boldLabel);
             DrawDefaultInspector();

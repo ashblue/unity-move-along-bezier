@@ -84,5 +84,52 @@ namespace CleverCrow.Curves.Editors {
 
             return handle;
         }
+        
+        protected void InspectorCurrentPoint () {
+            if (_selectedIndex >= _curve.Points.Count) return;
+
+            var point = _curve.Points[_selectedIndex];
+            EditorGUILayout.LabelField("Current Point", EditorStyles.boldLabel);
+
+            EditorGUI.BeginChangeCheck();
+            var pointPosition = EditorGUILayout.Vector3Field("Point Position", point.Position);
+            if (EditorGUI.EndChangeCheck()) {
+                EditorUtility.SetDirty(_curve);
+                Undo.RecordObject(_curve, "Move selected point");
+                point.Position = pointPosition;
+            }
+            
+            EditorGUI.BeginChangeCheck();
+            var mode = (CurveMode)EditorGUILayout.EnumPopup("Set Mode", point.Mode);
+            if (EditorGUI.EndChangeCheck()) {
+                EditorUtility.SetDirty(_curve);
+                Undo.RecordObject(_curve, "Changed tangent type");
+                point.EnforceTangents(_selectedTangent);
+                point.Mode = mode;
+            }
+            
+            if (_selectedTangent != TangentPoint.None 
+                && point.Mode != CurveMode.StraightLine) {
+                EditorGUI.BeginChangeCheck();
+                var newTangent = EditorGUILayout.Vector3Field("Selected Tangent", point.GetTangent(_selectedTangent));
+
+                if (EditorGUI.EndChangeCheck()) {
+                    EditorUtility.SetDirty(_curve);
+                    Undo.RecordObject(_curve, "Move selected tangent");
+                    point.SetTangent(_selectedTangent, newTangent);
+                    point.EnforceTangents(_selectedTangent);
+                }
+            }
+
+            if (_selectedTangent == TangentPoint.None 
+                && !_curve.Points[_selectedIndex].isEndPoint
+                && _curve.CurveCount > 1
+                && GUILayout.Button("Delete Point")) {
+                
+                EditorUtility.SetDirty(_curve);
+                Undo.RecordObject(_curve, "Delete point");
+                _curve.Points.RemoveAt(_selectedIndex);
+            }
+        }
     }
 }
