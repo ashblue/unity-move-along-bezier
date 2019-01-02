@@ -65,14 +65,23 @@ namespace CleverCrow.Curves {
         }
 
         private IEnumerator FollowOffMeshLink () {
-            var curve = agent.currentOffMeshLinkData.offMeshLink.GetComponent<CurveBase>();
-
             // Used to make sure the character is centered
             const float OFFSET_Y = 0.5f;
 
             // Should be adjusted at the curve level for tweaking
             const float DURATION = 2f;
+            
+            var curve = agent.currentOffMeshLinkData.offMeshLink.GetComponent<CurveBase>();
 
+            // Approach jump point
+            var jumpPoint = curve.GetPoint(0);
+            jumpPoint.y += OFFSET_Y;
+            while (Vector3.Distance(jumpPoint, transform.position) > 0.1) {
+                transform.position = Vector3.MoveTowards(transform.position, jumpPoint, Time.deltaTime * 1f);
+                yield return null;
+            }
+
+            // Jump
             var progress = 0f;
             while (agent.isOnOffMeshLink) {
                 progress += Time.deltaTime / DURATION;
@@ -80,7 +89,13 @@ namespace CleverCrow.Curves {
                 var pos = curve.GetPoint(progress);
                 pos.y += OFFSET_Y;
                 transform.position = pos;
-                if (progress > 1f) agent.CompleteOffMeshLink();
+                
+                if (progress > 1f) {
+                    var landPoint = curve.GetPoint(1);
+                    landPoint.y += OFFSET_Y;
+                    transform.position = landPoint;
+                    agent.CompleteOffMeshLink();
+                }
 
                 yield return null;
             }
