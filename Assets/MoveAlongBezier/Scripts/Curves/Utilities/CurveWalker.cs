@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace CleverCrow.Curves {
-    public class NodeCurveWalker : MonoBehaviour {
-        public NodeCurve curve;
+    public class CurveWalker : MonoBehaviour {
+        public CurveBase curve;
         public float duration = 5;
         public bool reverse;
 
