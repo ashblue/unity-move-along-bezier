@@ -1446,8 +1446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ba0a9565fda471eada29cc7dddc169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samplePoints: 1
-  points:
+  _points:
   - transform: {fileID: 1278900890}
     isEndPoint: 1
     _tangentA: {x: 1, y: 0, z: 1}
@@ -1460,6 +1459,7 @@ MonoBehaviour:
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 1
     _position: {x: 0, y: 0, z: 0}
+  samplePoints: 1
 --- !u!1 &1141558534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,8 +2110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ba0a9565fda471eada29cc7dddc169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samplePoints: 10
-  points:
+  _points:
   - transform: {fileID: 568961878}
     isEndPoint: 1
     _tangentA: {x: -1, y: 0, z: 1}
@@ -2124,6 +2123,7 @@ MonoBehaviour:
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
+  samplePoints: 10
 --- !u!1 &1770093248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,10 +2159,10 @@ MonoBehaviour:
     _tangentA: {x: -1, y: 0, z: 0}
     _tangentB: {x: 3.4404774, y: 0, z: 0}
     _mode: 0
-    _position: {x: -2.429224, y: -0.69195366, z: 0}
+    _position: {x: -2.429224, y: 1.3106976, z: 0}
   - transform: {fileID: 1770093250}
     isEndPoint: 0
-    _tangentA: {x: -2.2116795, y: 0, z: 0}
+    _tangentA: {x: -2.2116795, y: 2.249199, z: 0}
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 3.5709686, y: 3.8809013, z: 0}
@@ -2209,12 +2209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ba0a9565fda471eada29cc7dddc169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samplePoints: 10
-  points:
+  _points:
   - transform: {fileID: 808567941}
     isEndPoint: 1
     _tangentA: {x: 1, y: 0, z: 1}
-    _tangentB: {x: 15.847832, y: 0, z: 0}
+    _tangentB: {x: 15.847832, y: 0, z: -0.4783516}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
   - transform: {fileID: 568961878}
@@ -2223,6 +2222,7 @@ MonoBehaviour:
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
+  samplePoints: 10
 --- !u!4 &1859988279
 Transform:
   m_ObjectHideFlags: 0
@@ -2363,8 +2363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ba0a9565fda471eada29cc7dddc169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samplePoints: 10
-  points:
+  _points:
   - transform: {fileID: 976254472}
     isEndPoint: 1
     _tangentA: {x: 1, y: 0, z: -1}
@@ -2383,6 +2382,7 @@ MonoBehaviour:
     _tangentB: {x: 1, y: 0, z: 0}
     _mode: 0
     _position: {x: 0, y: 0, z: 0}
+  samplePoints: 10
 --- !u!1 &2091080284
 GameObject:
   m_ObjectHideFlags: 0

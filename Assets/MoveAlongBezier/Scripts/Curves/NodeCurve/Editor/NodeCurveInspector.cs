@@ -20,12 +20,12 @@ namespace CleverCrow.Curves.Editors {
             _curve = target as NodeCurve;
             if (!_curve.Ready) return;
 
-            for (var i = 0; i < _curve.points.Count - 1; i += 1) {
-                var startPoint = _curve.points[i];
+            for (var i = 0; i < _curve.Points.Count - 1; i += 1) {
+                var startPoint = _curve.Points[i];
                 if (i == 0) DrawPoint(i, startPoint);
                 var startTangent = DrawTangentPoint(i, TangentPoint.B);
                 
-                var endPoint = _curve.points[i + 1];
+                var endPoint = _curve.Points[i + 1];
                 DrawPoint(i + 1, endPoint);
                 var endTangent = DrawTangentPoint(i + 1, TangentPoint.A);
                 
@@ -37,23 +37,23 @@ namespace CleverCrow.Curves.Editors {
             _curve = target as NodeCurve;
                         
             EditorGUI.BeginChangeCheck();
-            var startPoint = _curve.points[0];
+            var startPoint = _curve.Points[0];
             startPoint.transform = 
                 EditorGUILayout.ObjectField("Start Point", startPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
                 Undo.RecordObject(_curve, "Change start point");
                 EditorUtility.SetDirty(_curve);
-                startPoint.SetRelativeTangent(_curve.points[1].Position);
+                startPoint.SetRelativeTangent(_curve.Points[1].Position);
             }
             
             EditorGUI.BeginChangeCheck();
-            var endPoint = _curve.points[_curve.points.Count - 1];
+            var endPoint = _curve.Points[_curve.Points.Count - 1];
             endPoint.transform = 
                 EditorGUILayout.ObjectField("End Point", endPoint.transform, typeof(Transform), true) as Transform;
             if (EditorGUI.EndChangeCheck()) {
                 Undo.RecordObject(_curve, "Change end point");
                 EditorUtility.SetDirty(_curve);
-                endPoint.SetRelativeTangent(_curve.points[_curve.points.Count - 2].Position);
+                endPoint.SetRelativeTangent(_curve.Points[_curve.Points.Count - 2].Position);
             }
 
             AddNewPoint();
@@ -64,10 +64,10 @@ namespace CleverCrow.Curves.Editors {
         }
 
         private void AddNewPoint () {
-            if (_newPointPositions == null || _newPointPositions.Count != _curve.points.Count) {
+            if (_newPointPositions == null || _newPointPositions.Count != _curve.Points.Count) {
                 _newPointPositions = new List<Vector2>();
                 var options = new List<string>();
-                for (var i = 0; i < _curve.points.Count; i++) {
+                for (var i = 0; i < _curve.Points.Count; i++) {
                     _newPointPositions.Add(new Vector2(i, i + 1));
                     options.Add($"{i}, {i + 1}");
                 }
@@ -79,8 +79,8 @@ namespace CleverCrow.Curves.Editors {
             EditorGUILayout.LabelField("Point Creator", EditorStyles.boldLabel);
             _newPointPosition = EditorGUILayout.Popup("Point Between", _newPointPosition, _newPointOptions);
             if (GUILayout.Button("Add Point")) {
-                var start = _curve.transform.InverseTransformPoint(_curve.points[_newPointPosition].GlobalPosition);
-                var end = _curve.transform.InverseTransformPoint(_curve.points[_newPointPosition + 1].GlobalPosition);
+                var start = _curve.transform.InverseTransformPoint(_curve.Points[_newPointPosition].GlobalPosition);
+                var end = _curve.transform.InverseTransformPoint(_curve.Points[_newPointPosition + 1].GlobalPosition);
                 var point = new CurvePoint {
                     Position = Vector3.Lerp(start, end, 0.5f),
                     transform = _curve.transform
@@ -88,14 +88,14 @@ namespace CleverCrow.Curves.Editors {
 
                 Undo.RecordObject(_curve, "Add Point");
                 EditorUtility.SetDirty(_curve);
-                _curve.points.Insert(_newPointPosition + 1, point);
+                _curve.Points.Insert(_newPointPosition + 1, point);
             }
         }
 
         private void InspectorCurrentPoint () {
-            if (_selectedIndex >= _curve.points.Count) return;
+            if (_selectedIndex >= _curve.Points.Count) return;
 
-            var point = _curve.points[_selectedIndex];
+            var point = _curve.Points[_selectedIndex];
             EditorGUILayout.LabelField("Current Point", EditorStyles.boldLabel);
 
             EditorGUI.BeginChangeCheck();
@@ -129,12 +129,12 @@ namespace CleverCrow.Curves.Editors {
             }
 
             if (_selectedTangent == TangentPoint.None 
-                && !_curve.points[_selectedIndex].isEndPoint
+                && !_curve.Points[_selectedIndex].isEndPoint
                 && GUILayout.Button("Delete Point")) {
                 
                 EditorUtility.SetDirty(_curve);
                 Undo.RecordObject(_curve, "Delete point");
-                _curve.points.RemoveAt(_selectedIndex);
+                _curve.Points.RemoveAt(_selectedIndex);
             }
         }
 
@@ -164,7 +164,7 @@ namespace CleverCrow.Curves.Editors {
         }
 
         private Vector3 DrawTangentPoint (int index, TangentPoint tangentPoint) {
-            var point = _curve.points[index];
+            var point = _curve.Points[index];
             var handle = point.GetTangent(tangentPoint) + point.GlobalPosition;
             var size = HandleUtility.GetHandleSize(handle);
             var handleRotation = Tools.pivotRotation == PivotRotation.Local ?

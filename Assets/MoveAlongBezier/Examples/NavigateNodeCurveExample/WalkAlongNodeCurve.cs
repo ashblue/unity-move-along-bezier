@@ -16,7 +16,7 @@ namespace CleverCrow.Curves {
 
 
         void Start () {
-            transform.position = curves[0].points[0].GlobalPosition;
+            transform.position = curves[0].Points[0].GlobalPosition;
             SetCurve(curves[_curveIndex]);
             _curveIndex++;
         }
