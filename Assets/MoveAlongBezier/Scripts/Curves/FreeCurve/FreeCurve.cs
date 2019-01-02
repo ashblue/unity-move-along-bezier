@@ -7,11 +7,11 @@ namespace CleverCrow.Curves {
             Points = new List<CurvePoint> {
                 new CurvePoint {
                     transform = transform,
-                    Position =  Vector3.left
+                    Position =  Vector3.left * 2
                 },
                 new CurvePoint {
                     transform = transform,
-                    Position = Vector3.right
+                    Position = Vector3.right * 2
                 }
             };
         }

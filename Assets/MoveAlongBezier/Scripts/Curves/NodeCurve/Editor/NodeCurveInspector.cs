@@ -10,7 +10,7 @@ namespace CleverCrow.Curves.Editors {
         private string[] _newPointOptions;
 
         public override void OnInspectorGUI () {
-            _curve = target as NodeCurve;
+            _curve = target as CurveBase;
                         
             EditorGUI.BeginChangeCheck();
             var startPoint = _curve.Points[0];
